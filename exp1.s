@@ -18,27 +18,27 @@ main:
 	.fmask	0x00000000,0
 	.set	noreorder
 	.set	nomacro
-	addiu	$sp,$sp,-48
-	sw	$fp,44($sp)
-	move	$fp,$sp
-	li	$2,10			# 0xa
-	sw	$2,4($fp)
-	li	$2,17			# 0x11
-	sw	$2,8($fp)
-	lw	$3,4($fp)
-	lw	$2,8($fp)
-	addu	$2,$3,$2
-	sw	$2,12($fp)
-	lw	$3,4($fp)
-	lw	$2,8($fp)
-	subu	$2,$3,$2
+	addiu	$sp,$sp,-48     # adds register(sp) and (-48) and stores in register (sp)
+	sw	$fp,44($sp)     # Store Word $fp at specific address.
+	move	$fp,$sp		# $fp = $sp
+	li	$2,10			# $2 = 10
+	sw	$2,4($fp) # Store Word $2 at specific address.
+	li	$2,17			# $2 = 17
+	sw	$2,8($fp)  # Memory[$fp+8]=$2 
+	lw	$3,4($fp)  # Memory[$fp+4]=$3
+	lw	$2,8($fp) # Memory[$fp+8] = $2
+	addu	$2,$3,$2 # $2 = $3 + $2
+	sw	$2,12($fp)  # Memory[fp+12] = 2 # store
+	lw	$3,4($fp)   #Memory[fp+4] = 3 # load
+	lw	$2,8($fp)   
+	subu	$2,$3,$2   # $2 = $2 - $3
 	sw	$2,16($fp)
 	lw	$3,4($fp)
 	lw	$2,8($fp)
-	teq	$2,$0,7
-	div	$0,$3,$2
-	mfhi	$2
-	mflo	$2
+	teq	$2,$0,7   
+	div	$0,$3,$2  # $0 = $3 / $2
+	mfhi	$2 # $2 = hi
+	mflo	$2 # $2 = lo
 	sw	$2,20($fp)
 	lw	$3,4($fp)
 	lw	$2,8($fp)
